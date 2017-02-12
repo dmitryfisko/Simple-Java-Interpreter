@@ -1,0 +1,22 @@
+int first = 5;
+double second = 7.0;
+
+while (first > 0) {
+    second = second - 2.1;
+    first = first - 1;
+}
+
+{
+    int third = - 5;
+    for (int i = 0; i < 10; i++) {
+        third = third + (i * first);
+        first = first + 1;
+    }
+    second = second + third;
+}
+
+if (first == 0) {
+    System.out.println(second);
+} else {
+    System.out.println(first);
+}
