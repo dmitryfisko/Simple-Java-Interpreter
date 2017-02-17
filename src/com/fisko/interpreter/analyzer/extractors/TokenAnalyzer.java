@@ -6,9 +6,16 @@ import java.util.List;
 
 public abstract class TokenAnalyzer {
 
+    private final TokenAnalyzerState mState;
+
+    public TokenAnalyzer(TokenAnalyzerState state) {
+        mState = state;
+    }
+
     public int extract(final int startPosition, final String code, final List<Token> tokens) {
         int endPosition = computePatternEndPosition(startPosition, code);
-        tokens.add(new Token(code.substring(startPosition, endPosition)));
+        String token = code.substring(startPosition, endPosition);
+        tokens.add(new Token(token, mState.getCurrentLine()));
         return endPosition;
     }
 
@@ -18,6 +25,10 @@ public abstract class TokenAnalyzer {
             ++endPosition;
         }
         return endPosition;
+    }
+
+    protected TokenAnalyzerState getState() {
+        return mState;
     }
 
     public abstract boolean isCompatible(final char symbol);

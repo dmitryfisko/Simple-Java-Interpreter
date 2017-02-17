@@ -1,6 +1,7 @@
 package com.fisko.interpreter.analyzer.extractors.impl;
 
 import com.fisko.interpreter.analyzer.extractors.TokenAnalyzer;
+import com.fisko.interpreter.analyzer.extractors.TokenAnalyzerState;
 
 public class SpecialTokenAnalyzer extends TokenAnalyzer {
 
@@ -8,6 +9,10 @@ public class SpecialTokenAnalyzer extends TokenAnalyzer {
     private static final String[] OPERATORS = {
             "++", "--", "=="
     };
+
+    public SpecialTokenAnalyzer(TokenAnalyzerState state) {
+        super(state);
+    }
 
     @Override
     protected int computePatternEndPosition(final int startPosition, final String code) {

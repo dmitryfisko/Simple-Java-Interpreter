@@ -1,5 +1,6 @@
 package com.fisko.interpreter.analyzer;
 
+import com.fisko.interpreter.analyzer.extractors.TokenAnalyzerState;
 import com.fisko.interpreter.exceptions.UnrecognizedSymbol;
 import com.fisko.interpreter.analyzer.extractors.TokenAnalyzer;
 import com.fisko.interpreter.analyzer.extractors.impl.LiteralTokenAnalyzer;
@@ -14,9 +15,10 @@ public class Tokenizer {
     private List<TokenAnalyzer> mExtractors = new ArrayList<>();
 
     public Tokenizer() {
-        mExtractors.add(new LiteralTokenAnalyzer());
-        mExtractors.add(new SpecialTokenAnalyzer());
-        mExtractors.add(new SkipTokenAnalyzer());
+        TokenAnalyzerState state = new TokenAnalyzerState();
+        mExtractors.add(new LiteralTokenAnalyzer(state));
+        mExtractors.add(new SpecialTokenAnalyzer(state));
+        mExtractors.add(new SkipTokenAnalyzer(state));
     }
 
     public List<Token> tokenize(String code) {
@@ -38,6 +40,5 @@ public class Tokenizer {
         System.out.println(symbol);
         throw new UnrecognizedSymbol();
     }
-
 
 }
