@@ -27,7 +27,25 @@ public class Tokenizer {
             TokenAnalyzer extractor = getCompatibleExtractor(code.charAt(position));
             position = extractor.extract(position, code, tokens);
         }
+        checkConditions(tokens);
         return tokens;
+    }
+
+    private static void checkConditions(List<Token> tokens) {
+        for (int i = 1; i < tokens.size(); ++i) {
+            Token.TokenType firstType = tokens.get(i).getType();
+            Token.TokenType secondType = tokens.get(i-1).getType();
+            if (skipUnRequired(firstType) || skipUnRequired(secondType)) {
+                continue;
+            }
+            if (firstType == secondType) {
+                throw  new RuntimeException("Wrong operators sequence on line " + tokens.get(i).getLine());
+            }
+        }
+    }
+
+    private static boolean skipUnRequired(Token.TokenType type) {
+        return Token.TokenType.BRACES == type || Token.TokenType.OPERATOR == type;
     }
 
     private TokenAnalyzer getCompatibleExtractor(char symbol) {

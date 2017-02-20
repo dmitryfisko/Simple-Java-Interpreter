@@ -2,6 +2,8 @@ package com.fisko.interpreter;
 
 import com.fisko.interpreter.analyzer.Token;
 import com.fisko.interpreter.analyzer.Tokenizer;
+import com.fisko.interpreter.parser.interpret.Interpretable;
+import com.fisko.interpreter.parser.parsers.impl.SimpleBlockParser;
 import com.fisko.interpreter.preprocessor.CodeReader;
 
 import java.util.List;
@@ -10,12 +12,15 @@ public class Main {
 
     private static final String CODE_FILE_PATH = "main.txt";
 
-public static void main(String[] args) {
-    String code = new CodeReader(CODE_FILE_PATH).read();
-    List<Token> tokens = new Tokenizer().tokenize(code);
-    checkConditions(tokens);
-    printTokens(tokens);
-}
+    public static void main(String[] args) {
+        //test();
+        String code = new CodeReader(CODE_FILE_PATH).read();
+        List<Token> tokens = new Tokenizer().tokenize(code);
+        printTokens(tokens);
+        Interpretable interpretable = new SimpleBlockParser().parse(tokens).interpretable;
+        interpretable.println(0);
+        interpretable.interpret();
+    }
 
     private static void printTokens(List<Token> tokens) {
         for (Token token : tokens) {
@@ -23,24 +28,28 @@ public static void main(String[] args) {
         }
     }
 
-    private static void checkConditions(List<Token> tokens) {
-        for (int i = 1; i < tokens.size(); ++i) {
-            Token.TokenType firstType = tokens.get(i).getType();
-            Token.TokenType secondType = tokens.get(i-1).getType();
-            if (skipUnRequired(firstType) || skipUnRequired(secondType)) {
-                continue;
-            }
-            if (firstType == secondType) {
-                throw  new RuntimeException("Wrong operators sequence on line " + tokens.get(i).getLine());
-            }
-        }
-    }
+    public static void test() {
+        int first = 5;
+        double second = 7.0;
 
-    public static boolean skipUnRequired(Token.TokenType type) {
-        if (Token.TokenType.BRACES == type || Token.TokenType.OPERATOR == type) {
-            return true;
+        while (first > 0) {
+            second = second - 2.1;
+            first = first - 1;
+        }
+
+        {
+            int third = - 5;
+            for (int i = 0; i < 10; i++) {
+                third = third + (i * first);
+                first = first + 1;
+            }
+            second = second + third;
+        }
+
+        if (first == 0) {
+            System.out.println(first);
         } else {
-            return false;
+            System.out.println(second);
         }
     }
 

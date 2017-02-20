@@ -16,6 +16,10 @@ public class Token {
     private TokenType mTokenType;
     private int mLine;
 
+    public Token(String token) {
+        this(token, -1);
+    }
+
     public Token(String token, int line) {
         mToken = token;
         mLine = line;
@@ -30,6 +34,10 @@ public class Token {
         return mTokenType;
     }
 
+    public String getToken() {
+        return mToken;
+    }
+
     public int getLine() {
         return mLine;
     }
@@ -38,9 +46,30 @@ public class Token {
         return String.format("%1$" + n + "s", s);
     }
 
+    public boolean isVariable() {
+        return mTokenType == TokenType.VARIABLE;
+    }
+
+    public boolean isOperator() {
+        return mTokenType == TokenType.OPERATOR;
+    }
+
     @Override
     public String toString() {
         return padRight(mToken, 18) + " : " + padLeft(mTokenType.toString(), 15);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Token == false) {
+            return false;
+        }
+        Token o = (Token) obj;
+        return mToken.equals(o.mToken);
+    }
+
+    @Override
+    public int hashCode() {
+        return mToken.hashCode();
+    }
 }
