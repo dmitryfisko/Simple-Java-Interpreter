@@ -40,9 +40,7 @@ public class SimpleBlockParser extends Parser {
     }
 
     private void extractInterpretables(List<Token> tokens) {
-
         while (tokens.size() != 0) {
-            //Logger.getGlobal().info(tokens.get(0).toString());
             Token token = tokens.get(0);
             Parser parser = mParsers.getCompatibleParser(token);
             ParserResult result = parser.parse(tokens);

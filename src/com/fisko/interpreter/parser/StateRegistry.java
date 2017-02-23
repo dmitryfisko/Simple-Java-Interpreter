@@ -1,10 +1,12 @@
 package com.fisko.interpreter.parser;
 
+import com.fisko.interpreter.analyzer.Token;
 import com.fisko.interpreter.exceptions.UnknownVariable;
 import com.fisko.interpreter.parser.models.Variable;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 public class StateRegistry {
@@ -33,11 +35,16 @@ public class StateRegistry {
     }
 
     public Variable getVariable(String name) {
+        return getVariable(new Token(name));
+    }
+
+    public Variable getVariable(Token token) {
+        String name = token.getToken();
         mDeclarations.peek().add(name);
         if (mVariables.containsKey(name)) {
             return mVariables.get(name);
         } else {
-            throw new UnknownVariable(name);
+            throw new UnknownVariable(token);
         }
     }
 
@@ -49,7 +56,9 @@ public class StateRegistry {
     }
 
     public void leaveBlock() {
-        mDeclarations.pop();
+        for (String variableName : mDeclarations.pop()) {
+            mVariables.remove(variableName);
+        }
     }
 
 }

@@ -118,7 +118,7 @@ public class Expression extends Interpretable {
     public void println(int level) {
         List<Token> rpn = convertToRPN(mTokens);
         String representation = "";
-        for (Token token : mTokens) {
+        for (Token token : rpn) {
             representation += token.getToken() + " ";
         }
         TreePrinter.println(representation, level);

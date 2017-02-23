@@ -33,7 +33,7 @@ public class AssignmentParser extends Parser {
 
         SplitterHolder holder = splitByToken(new Token(";"), tokens);
         Expression expression = new Expression(holder.extractedTokens);
-        Assignment assignment = new Assignment(variableToken.getToken(), expression, declaration);
+        Assignment assignment = new Assignment(variableToken, expression, declaration);
         return new ParserResult(assignment, holder.remainingTokens);
     }
 

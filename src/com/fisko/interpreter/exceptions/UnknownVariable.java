@@ -1,8 +1,10 @@
 package com.fisko.interpreter.exceptions;
 
+import com.fisko.interpreter.analyzer.Token;
+
 public class UnknownVariable extends RuntimeException {
 
-    public UnknownVariable(String value) {
-        super("Wrong value: " + value);
+    public UnknownVariable(Token token) {
+        super("Unknown variable: " +  token.getToken() + " on line " + token.getLine());
     }
 }

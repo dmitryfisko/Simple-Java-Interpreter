@@ -1,5 +1,6 @@
 package com.fisko.interpreter.parser.interpret.impl;
 
+import com.fisko.interpreter.analyzer.Token;
 import com.fisko.interpreter.parser.StateRegistry;
 import com.fisko.interpreter.parser.interpret.Interpretable;
 import com.fisko.interpreter.parser.interpret.TreePrinter;
@@ -7,11 +8,11 @@ import com.fisko.interpreter.parser.models.Variable;
 
 public class Assignment extends Interpretable {
 
-    private String mVariableName;
+    private Token mVariableName;
     private Expression mExpression;
     private boolean isDeclaration;
 
-    public Assignment(String variableName, Expression expression, boolean declaration) {
+    public Assignment(Token variableName, Expression expression, boolean declaration) {
         mVariableName = variableName;
         mExpression = expression;
         isDeclaration = declaration;
@@ -22,7 +23,7 @@ public class Assignment extends Interpretable {
         StateRegistry stateRegistry = StateRegistry.getInstance();
         Variable variable;
         if (isDeclaration) {
-            variable = new Variable(mVariableName);
+            variable = new Variable(mVariableName.getToken());
             stateRegistry.declareVariable(variable);
         } else {
             variable = stateRegistry.getVariable(mVariableName);
@@ -33,7 +34,8 @@ public class Assignment extends Interpretable {
 
     @Override
     public void println(int level) {
-        TreePrinter.println(mVariableName + " = ", level);
+        String declare = isDeclaration ? "declare " : "";
+        TreePrinter.println(declare + mVariableName + " = ", level);
         mExpression.println(level + 1);
     }
 }

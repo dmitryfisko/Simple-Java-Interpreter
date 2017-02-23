@@ -17,7 +17,7 @@ public class Token {
     private int mLine;
 
     public Token(String token) {
-        this(token, -1);
+        this(token, 17); // magic number
     }
 
     public Token(String token, int line) {
