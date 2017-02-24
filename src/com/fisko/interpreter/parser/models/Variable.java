@@ -1,5 +1,6 @@
 package com.fisko.interpreter.parser.models;
 
+import com.fisko.interpreter.exceptions.WrongVariableType;
 import com.fisko.interpreter.parser.StateRegistry;
 
 public class Variable {
@@ -20,14 +21,26 @@ public class Variable {
         this("" + value);
     }
 
+    public Variable(Double value, Type type) {
+        this("" + value, type);
+    }
+
     public Variable(Boolean value) {
         this("" + value);
     }
 
-    public Variable(String value) {
-        mType = getType(value);
-        mRegistry = StateRegistry.getInstance();
+    public Variable(boolean value, Type type) {
+        this("" + value, type);
+    }
 
+    public Variable(String value) {
+        this(value, getType(value));
+    }
+
+    public Variable(String value, Type type) {
+        mValue = value;
+        mType = type;
+        mRegistry = StateRegistry.getInstance();
         if (mType == Type.UNDEFINED) {
             mName = value;
         } else {
@@ -56,9 +69,16 @@ public class Variable {
             }
         }
 
-        mValue = value.mValue;
-        mType = value.mType;
-        return this;
+        if (mType == Type.UNDEFINED && value.mType != Type.UNDEFINED ||
+                mType == Type.BOOLEAN && value.mType == Type.BOOLEAN ||
+                mType == Type.INTEGER && value.mType == Type.INTEGER ||
+                mType == Type.DOUBLE && (value.mType == Type.DOUBLE || value.mType == Type.INTEGER)) {
+            mValue = value.mValue;
+            mType = value.mType;
+            return this;
+        } else {
+            throw new WrongVariableType(mType, value.mType, 16);
+        }
     }
 
     public double getNumericValue() {
@@ -81,7 +101,7 @@ public class Variable {
         }
     }
 
-    private Type getType(String value) {
+    private static Type getType(String value) {
         if (isInteger(value)) {
             return Type.INTEGER;
         } else if (isDouble(value)) {
@@ -93,7 +113,7 @@ public class Variable {
         }
     }
 
-    private boolean isInteger(String value) {
+    private static boolean isInteger(String value) {
         try {
             Integer.parseInt(value);
             return true;
@@ -102,7 +122,7 @@ public class Variable {
         }
     }
 
-    private boolean isDouble(String value) {
+    private static boolean isDouble(String value) {
         try {
             Double.parseDouble(value);
             return true;
@@ -111,7 +131,7 @@ public class Variable {
         }
     }
 
-    private boolean isBoolean(String value) {
+    private static boolean isBoolean(String value) {
         return "true".equals(value) || "false".equals(value);
     }
 

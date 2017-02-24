@@ -7,35 +7,29 @@ import com.fisko.interpreter.parser.models.Variable;
 public class Calculator {
 
     public static Variable evaluate(Token operator, Variable varRight, Variable varLeft) {
-        double valueL = varLeft.getNumericValue();
-        double valueR = varRight.getNumericValue();
-        switch (operator.getToken()) {
+        String operation = operator.getToken();
+        switch (operation) {
             case "-":
-                return new Variable(valueL - valueR);
             case "+":
-                return new Variable(valueL + valueR);
             case "*":
-                return new Variable(valueL * valueR);
+                return Operations.computeNumeric(operation, varLeft, varRight);
             case "==":
-                return new Variable(valueL == valueR);
             case ">":
-                return new Variable(valueL > valueR);
             case "<":
-                return new Variable(valueL < valueR);
+                return Operations.computeBoolean(operation, varLeft, varRight);
             default:
                 throw new IllegalExpression(operator);
         }
     }
 
-    public static Variable evaluate(Token operator, Variable left) {
-        double value = left.getNumericValue();
+    public static Variable evaluate(Token operator, Variable variable) {
+        String operation = operator.getToken();
         switch (operator.getToken()) {
             case "++":
-                return left.setValue(new Variable(value + 1));
             case "--":
-                return left.setValue(new Variable(value - 1));
+                return Operations.reassignOneParameter(operation, variable);
             case "-":
-                return left.setValue(new Variable(-value));
+                return Operations.computeOneParameter(operation, variable);
             default:
                 throw new IllegalExpression(operator);
         }

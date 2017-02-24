@@ -4,17 +4,14 @@ import com.fisko.interpreter.analyzer.Token;
 import com.fisko.interpreter.exceptions.UnknownVariable;
 import com.fisko.interpreter.parser.models.Variable;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class StateRegistry {
 
     private static StateRegistry INSTANCE;
 
     private HashMap<String, Variable> mVariables = new HashMap<>();
-    private Stack<LinkedList<String>> mDeclarations = new Stack<>();
+    private Stack<HashSet<String>> mDeclarations = new Stack<>();
 
     private StateRegistry() {
     }
@@ -31,7 +28,7 @@ public class StateRegistry {
     }
 
     public void declareBlock() {
-        mDeclarations.add(new LinkedList<>());
+        mDeclarations.add(new HashSet<>());
     }
 
     public Variable getVariable(String name) {
@@ -40,7 +37,6 @@ public class StateRegistry {
 
     public Variable getVariable(Token token) {
         String name = token.getToken();
-        mDeclarations.peek().add(name);
         if (mVariables.containsKey(name)) {
             return mVariables.get(name);
         } else {
@@ -49,10 +45,12 @@ public class StateRegistry {
     }
 
     public void declareVariable(Variable variable) {
-        if (mVariables.containsKey(variable.getName())) {
+        String variableName = variable.getName();
+        if (mVariables.containsKey(variableName)) {
             throw new RuntimeException();
         }
-        mVariables.put(variable.getName(), variable);
+        mDeclarations.peek().add(variable.getName());
+        mVariables.put(variableName, variable);
     }
 
     public void leaveBlock() {
