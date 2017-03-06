@@ -2,6 +2,7 @@ package com.fisko.interpreter.parser;
 
 import com.fisko.interpreter.analyzer.Token;
 import com.fisko.interpreter.exceptions.UnknownVariable;
+import com.fisko.interpreter.exceptions.VariableAlreadyDeclared;
 import com.fisko.interpreter.parser.models.Variable;
 
 import java.util.*;
@@ -47,7 +48,7 @@ public class StateRegistry {
     public void declareVariable(Variable variable) {
         String variableName = variable.getName();
         if (mVariables.containsKey(variableName)) {
-            throw new RuntimeException();
+            throw new VariableAlreadyDeclared(4);
         }
         mDeclarations.peek().add(variable.getName());
         mVariables.put(variableName, variable);

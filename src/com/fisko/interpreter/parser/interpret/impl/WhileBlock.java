@@ -19,6 +19,7 @@ public class WhileBlock extends Interpretable {
 
     @Override
     public Variable interpret() {
+        int first = 5;
         mState.declareBlock();
         while (mCondition.interpret().getBoolValue()) {
             mBlock.interpret();

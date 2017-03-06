@@ -12,6 +12,8 @@ import java.util.*;
 public class Expression extends Interpretable {
 
     private static final Token MULTIPLY_TOKEN = new Token("*");
+    private static final Token DIV_TOKEN = new Token("/");
+    private static final Token MOD_TOKEN = new Token("%");
     private static final Token SUM_TOKEN = new Token("+");
     private static final Token SUB_TOKEN = new Token("-");
     private static final Token OPEN_ROUND_BRACKET = new Token("(");
@@ -19,17 +21,21 @@ public class Expression extends Interpretable {
     private static final Token EQUAL_TOKEN = new Token("==");
     private static final Token LESS_TOKEN = new Token("<");
     private static final Token MORE_TOKEN = new Token(">");
+    private static final Token LESS_OR_MORE_TOKEN = new Token("<=");
     private static final Token INCREMENT_TOKEN = new Token("--");
     private static final Token DECREMENT_TOKEN = new Token("++");
 
     private static Map<Token, Integer> PRIORITIES = new HashMap<Token, Integer>() {{
         put(MULTIPLY_TOKEN, 3);
+        put(DIV_TOKEN, 3);
+        put(MOD_TOKEN, 3);
         put(SUM_TOKEN, 2);
         put(SUB_TOKEN, 2);
         put(OPEN_ROUND_BRACKET, 1);
         put(EQUAL_TOKEN, 0);
         put(LESS_TOKEN, 0);
         put(MORE_TOKEN, 0);
+        put(LESS_OR_MORE_TOKEN, 0);
         put(INCREMENT_TOKEN, -1);
         put(DECREMENT_TOKEN, -1);
     }};

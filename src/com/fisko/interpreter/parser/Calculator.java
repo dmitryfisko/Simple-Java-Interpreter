@@ -12,9 +12,12 @@ public class Calculator {
             case "-":
             case "+":
             case "*":
+            case "%":
+            case "/":
                 return Operations.computeNumeric(operation, varLeft, varRight);
             case "==":
             case ">":
+            case "<=":
             case "<":
                 return Operations.computeBoolean(operation, varLeft, varRight);
             default:

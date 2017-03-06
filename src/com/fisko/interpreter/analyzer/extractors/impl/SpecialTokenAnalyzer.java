@@ -5,9 +5,9 @@ import com.fisko.interpreter.analyzer.extractors.TokenAnalyzerState;
 
 public class SpecialTokenAnalyzer extends TokenAnalyzer {
 
-    private static final String SPECIAL_SYMBOLS = ";,(){}=+-*/<>";
+    private static final String SPECIAL_SYMBOLS = ";,(){}=+-*%/<>";
     private static final String[] OPERATORS = {
-            "++", "--", "=="
+            "++", "--", "==", "<="
     };
 
     public SpecialTokenAnalyzer(TokenAnalyzerState state) {

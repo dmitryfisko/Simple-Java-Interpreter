@@ -41,6 +41,10 @@ class Operations {
                 return valueLeft - valueRight;
             case "*":
                 return valueLeft * valueRight;
+            case "%":
+                return valueLeft % valueRight;
+            case "/":
+                return valueLeft / valueRight;
             default:
                 throw new IllegalOperator();
         }
@@ -56,6 +60,8 @@ class Operations {
                 return valueLeft > valueRight;
             case "<":
                 return valueLeft < valueRight;
+            case "<=":
+                return valueLeft <= valueRight;
             default:
                 throw new IllegalOperator();
         }

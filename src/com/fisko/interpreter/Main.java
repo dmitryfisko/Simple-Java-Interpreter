@@ -10,7 +10,9 @@ import java.util.List;
 
 public class Main {
 
-    private static final String CODE_FILE_PATH = "main.txt";
+//    private static final String CODE_FILE_PATH = "primes.txt";
+//    private static final String CODE_FILE_PATH = "example.txt";
+    private static final String CODE_FILE_PATH = "primes.txt";
 
     public static void main(String[] args) {
         //test();
@@ -50,6 +52,16 @@ public class Main {
             System.out.println(first);
         } else {
             System.out.println(second);
+        }
+    }
+
+    public static void prime_dividers() {
+        int n = 40;
+        for (int i = 2; i <= n; i++) {
+            while (n % i == 0) {
+                System.out.println(i);
+                n /= i;
+            }
         }
     }
 

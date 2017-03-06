@@ -14,7 +14,13 @@ public class PrintlnMethod extends Interpretable {
 
     @Override
     public Variable interpret() {
-        System.out.println(mExpression.interpret().getNumericValue());
+        double value = mExpression.interpret().getNumericValue();
+        int intValue = (int)value;
+        if (value == intValue) {
+            System.out.println(intValue);
+        } else {
+            System.out.println(value);
+        }
         return null;
     }
 

@@ -13,7 +13,7 @@ public class TokenTyper {
             "int", "double"
     );
     private static final List<String> OPERATORS = Arrays.asList(
-            "++", "--", "==", "<", ">", "+", "-", "*", "=", ";"
+            "++", "--", "==", "<=", "<", ">", "+", "-", "*", "=", ";", "/", "%"
     );
     private static final List<String> BLOCKS = Arrays.asList(
             "for", "if", "while", "else"
@@ -25,7 +25,7 @@ public class TokenTyper {
             "(", ")"
     );
     private static final List<String> VARIABLE = Arrays.asList(
-            "second", "first", "third", "i"
+            "second", "first", "third", "i", "n", "a", "b", "c", "temp"
     );
     public static final String NUMBER_PATTERN = "[0-9].?[0-9]";
     public static final Pattern NUMBER_PATTERN_COMPILED = Pattern.compile(NUMBER_PATTERN);

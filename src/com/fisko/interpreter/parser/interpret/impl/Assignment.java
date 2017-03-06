@@ -35,7 +35,7 @@ public class Assignment extends Interpretable {
     @Override
     public void println(int level) {
         String declare = isDeclaration ? "declare " : "";
-        TreePrinter.println(declare + mVariableName + " = ", level);
+        TreePrinter.println(declare + mVariableName.getToken() + " = ", level);
         mExpression.println(level + 1);
     }
 }
