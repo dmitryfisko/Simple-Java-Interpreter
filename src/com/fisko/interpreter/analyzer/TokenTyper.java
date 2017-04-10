@@ -4,7 +4,6 @@ import com.fisko.interpreter.exceptions.UnrecognizedToken;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Exchanger;
 import java.util.regex.Pattern;
 
 public class TokenTyper {
@@ -25,7 +24,7 @@ public class TokenTyper {
             "(", ")"
     );
     private static final List<String> VARIABLE = Arrays.asList(
-            "second", "first", "third", "i", "n", "a", "b", "c", "temp"
+            "second", "first", "third", "j", "k", "i", "n", "m", "a", "b", "c", "temp"
     );
     public static final String NUMBER_PATTERN = "[0-9].?[0-9]";
     public static final Pattern NUMBER_PATTERN_COMPILED = Pattern.compile(NUMBER_PATTERN);

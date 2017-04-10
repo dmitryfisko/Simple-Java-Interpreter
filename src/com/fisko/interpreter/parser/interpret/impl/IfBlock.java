@@ -25,7 +25,7 @@ public class IfBlock extends Interpretable {
             mState.declareBlock();
             mRightBlock.interpret();
             mState.leaveBlock();
-        } else {
+        } else if (mWrongBlock != null) {
             mState.declareBlock();
             mWrongBlock.interpret();
             mState.leaveBlock();
@@ -38,7 +38,9 @@ public class IfBlock extends Interpretable {
         TreePrinter.println("if", level);
         mCondition.println(level + 1);
         mRightBlock.println(level + 2);
-        mWrongBlock.println(level + 2);
+        if (mWrongBlock != null) {
+            mWrongBlock.println(level + 2);
+        }
     }
 
 }

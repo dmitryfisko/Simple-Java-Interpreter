@@ -7,6 +7,7 @@ import com.fisko.interpreter.parser.interpret.impl.Expression;
 import com.fisko.interpreter.parser.interpret.impl.IfBlock;
 import com.fisko.interpreter.parser.parsers.Parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IfBlockParser extends Parser {
@@ -33,12 +34,19 @@ public class IfBlockParser extends Parser {
         ParserResult rightBlockParser = new SimpleBlockParser().parse(conditionSplit.remainingTokens);
         Interpretable rightBlock = rightBlockParser.interpretable;
 
-        rightBlockParser.remainingTokens.remove(0); // else
+        Interpretable wrongBlock = null;
+        List<Token> remainingTokens;
+        if (rightBlockParser.remainingTokens.size() > 0 && rightBlockParser.remainingTokens.get(0).getToken().equals("else")) {
+            rightBlockParser.remainingTokens.remove(0);
+            ParserResult wrongBlockParser = new SimpleBlockParser().parse(rightBlockParser.remainingTokens);
+            wrongBlock = wrongBlockParser.interpretable;
+            remainingTokens = wrongBlockParser.remainingTokens;
+        } else {
+            remainingTokens = rightBlockParser.remainingTokens;
+        }
 
-        ParserResult wrongBlockParser = new SimpleBlockParser().parse(rightBlockParser.remainingTokens);
-        Interpretable wrongBlock = wrongBlockParser.interpretable;
         IfBlock ifBlock = new IfBlock(condition, rightBlock, wrongBlock);
-        return new ParserResult(ifBlock, wrongBlockParser.remainingTokens);
+        return new ParserResult(ifBlock, remainingTokens);
     }
 
     @Override

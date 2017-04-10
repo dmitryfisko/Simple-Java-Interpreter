@@ -11,8 +11,8 @@ import java.util.List;
 public class Main {
 
 //    private static final String CODE_FILE_PATH = "primes.txt";
-//    private static final String CODE_FILE_PATH = "example.txt";
-    private static final String CODE_FILE_PATH = "primes.txt";
+    private static final String CODE_FILE_PATH = "example.txt";
+//    private static final String CODE_FILE_PATH = "primes.txt";
 
     public static void main(String[] args) {
         //test();
