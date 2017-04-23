@@ -28,6 +28,7 @@ public class ParsersProvider {
         mParsers.add(new WhileBlockParser());
         mParsers.add(new IfBlockParser());
         mParsers.add(new PrintlnMethodParser());
+        mParsers.add(new SqrtMethodParser());
         mParsers.add(new AssignmentParser());
         return mParsers;
     }

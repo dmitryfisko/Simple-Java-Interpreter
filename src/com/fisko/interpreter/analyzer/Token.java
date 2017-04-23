@@ -50,6 +50,10 @@ public class Token {
         return mTokenType == TokenType.VARIABLE;
     }
 
+    public boolean isMethod() {
+        return mTokenType == TokenType.METHOD;
+    }
+
     public boolean isOperator() {
         return mTokenType == TokenType.OPERATOR;
     }

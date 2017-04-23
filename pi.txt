@@ -1,0 +1,14 @@
+double a = 1.0;
+double b = 1.0 / Math.sqrt(2.0);
+double t = 0.25;
+double x = 1.0;
+
+while (a != b) {
+    double y = a;
+    a = (a + b) / 2.0;
+    b = Math.sqrt(b * y);
+    t = t - x * (y - a) * (y - a);
+    x = x * 2;
+}
+double res = (a + b) * (a + b) / t * 4;
+System.out.println(res);

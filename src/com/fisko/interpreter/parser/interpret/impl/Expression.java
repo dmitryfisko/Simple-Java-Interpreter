@@ -19,6 +19,7 @@ public class Expression extends Interpretable {
     private static final Token OPEN_ROUND_BRACKET = new Token("(");
     private static final Token CLOSE_ROUND_BRACKET = new Token(")");
     private static final Token EQUAL_TOKEN = new Token("==");
+    private static final Token NOT_EQUAL_TOKEN = new Token("!=");
     private static final Token LESS_TOKEN = new Token("<");
     private static final Token MORE_TOKEN = new Token(">");
     private static final Token LESS_OR_MORE_TOKEN = new Token("<=");
@@ -33,6 +34,7 @@ public class Expression extends Interpretable {
         put(SUB_TOKEN, 2);
         put(OPEN_ROUND_BRACKET, 1);
         put(EQUAL_TOKEN, 0);
+        put(NOT_EQUAL_TOKEN, 0);
         put(LESS_TOKEN, 0);
         put(MORE_TOKEN, 0);
         put(LESS_OR_MORE_TOKEN, 0);
@@ -73,7 +75,7 @@ public class Expression extends Interpretable {
                 continue;
             }
 
-            if (token.isVariable()) {
+            if (token.isVariable() || token.isMethod()) {
                 rpn.add(token);
                 continue;
             }

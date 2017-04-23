@@ -12,7 +12,7 @@ public class TokenTyper {
             "int", "double"
     );
     private static final List<String> OPERATORS = Arrays.asList(
-            "++", "--", "==", "<=", "<", ">", "+", "-", "*", "=", ";", "/", "%"
+            "++", "--", "==", "!=", "<=", "<", ">", "+", "-", "*", "=", ";", "/", "%"
     );
     private static final List<String> BLOCKS = Arrays.asList(
             "for", "if", "while", "else"
@@ -23,13 +23,12 @@ public class TokenTyper {
     private static final List<String> ROUND_BRACKET = Arrays.asList(
             "(", ")"
     );
-    private static final List<String> VARIABLE = Arrays.asList(
-            "second", "first", "third", "j", "k", "i", "n", "m", "a", "b", "c", "temp"
-    );
-    public static final String NUMBER_PATTERN = "[0-9].?[0-9]";
-    public static final Pattern NUMBER_PATTERN_COMPILED = Pattern.compile(NUMBER_PATTERN);
+    public static final String VARIABLE_PATTERN = "[A-Za-z]*";
+    public static final Pattern VARIABLE_PATTERN_COMPILED = Pattern.compile(VARIABLE_PATTERN);
 
-    private static final String METHOD = "System.out.println";
+    private static final List<String> METHODS = Arrays.asList(
+            "System.out.println", "Math.sqrt"
+    );
 
     public Token.TokenType typify(String token, int line) {
         if (TYPES.contains(token)) {
@@ -42,9 +41,9 @@ public class TokenTyper {
             return Token.TokenType.ROUND_BRACKET;
         } else if (BRACES.contains(token)) {
             return Token.TokenType.BRACES;
-        } else if (METHOD.equals(token)) {
+        } else if (METHODS.contains(token)) {
             return Token.TokenType.METHOD;
-        } else if (VARIABLE.contains(token) || isNumber(token)) {
+        } else if (VARIABLE_PATTERN_COMPILED.matcher(token).matches() || isNumber(token)) {
             return Token.TokenType.VARIABLE;
         } else {
             throw new UnrecognizedToken(token, line);
