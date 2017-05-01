@@ -11,6 +11,7 @@ import java.util.List;
 public class PrintlnMethodParser extends Parser {
 
     private static final Token METHOD_TOKEN = new Token("System.out.println");
+    private static final Token METHOD_TOKEN_SINGLE_LINE = new Token("System.out.print");
     private static final Token BRACKET_TOKEN = new Token("(");
 
     @Override
@@ -23,18 +24,25 @@ public class PrintlnMethodParser extends Parser {
     }
 
     private ParserResult parseUnsafe(List<Token> tokens) {
-        tokens.remove(0);
+        Token methodToken = tokens.remove(0);
         SplitterHolder holder = splitByEnclosedToken(BRACKET_TOKEN, tokens);
 
-        Expression expression = new Expression(holder.extractedTokens);
-        PrintlnMethod method = new PrintlnMethod(expression);
+        Expression expression = null;
+        if (holder.extractedTokens.size() != 0) {
+            expression = new Expression(holder.extractedTokens);
+        }
         holder.remainingTokens.remove(0);
+        PrintlnMethod method = new PrintlnMethod(expression, isNewLine(methodToken));
         return new ParserResult(method, holder.remainingTokens);
+    }
+
+    private boolean isNewLine(Token methodToken) {
+        return METHOD_TOKEN.equals(methodToken);
     }
 
     @Override
     public boolean isCompatible(Token token) {
-        return METHOD_TOKEN.equals(token);
+        return METHOD_TOKEN.equals(token) || METHOD_TOKEN_SINGLE_LINE.equals(token);
     }
 
 }

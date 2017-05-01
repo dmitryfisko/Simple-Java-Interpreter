@@ -56,6 +56,8 @@ class Operations {
         switch (operation) {
             case "==":
                 return Math.abs(valueLeft - valueRight) < EPSILON;
+            case "!=":
+                return Math.abs(valueLeft - valueRight) >= EPSILON;
             case ">":
                 return valueLeft > valueRight;
             case "<":

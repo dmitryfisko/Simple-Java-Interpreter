@@ -116,7 +116,12 @@ public class Expression extends Interpretable {
     public Variable interpret() {
         List<Token> rpn = convertToRPN(mTokens);
         try {
-            return evalRPN(rpn);
+            Variable var = evalRPN(rpn);
+            if (var.getType() == Variable.Type.UNDEFINED) {
+                return new Variable(var.getNumericValue());
+            } else {
+                return var;
+            }
         } catch (EmptyStackException e) {
             throw new IllegalExpression(rpn.get(0));
         }

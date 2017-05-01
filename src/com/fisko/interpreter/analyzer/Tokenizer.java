@@ -38,9 +38,10 @@ public class Tokenizer {
             if (skipUnRequired(firstType) || skipUnRequired(secondType)) {
                 continue;
             }
-            if (firstType == secondType) {
-                throw  new RuntimeException("Wrong operators sequence on line " + tokens.get(i).getLine());
-            }
+            //TODO: fix () and method()
+            //if (firstType == secondType) {
+            //    throw  new RuntimeException("Wrong operators sequence on line " + tokens.get(i).getLine());
+            //}
         }
     }
 

@@ -16,6 +16,7 @@ public class Calculator {
             case "/":
                 return Operations.computeNumeric(operation, varLeft, varRight);
             case "==":
+            case "!=":
             case ">":
             case "<=":
             case "<":

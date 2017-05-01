@@ -27,7 +27,7 @@ public class TokenTyper {
     public static final Pattern VARIABLE_PATTERN_COMPILED = Pattern.compile(VARIABLE_PATTERN);
 
     private static final List<String> METHODS = Arrays.asList(
-            "System.out.println", "Math.sqrt"
+            "System.out.println", "System.out.print", "Math.sqrt"
     );
 
     public Token.TokenType typify(String token, int line) {
